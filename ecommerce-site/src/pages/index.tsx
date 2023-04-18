@@ -1,10 +1,11 @@
+import { IProduct, IProductFeedProps, IProductProps } from "@/Types";
 import Banner from "@/components/Banner";
 import Header from "@/components/Header";
 import ProductFeed from "@/components/ProductFeed";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
-export default function Home({ products }: any) {
+export default function Home({ products }: IProductFeedProps) {
   return (
     <div className="bg-gray-100">
       <Head>
@@ -20,9 +21,9 @@ export default function Home({ products }: any) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const products = await fetch("https://fakestoreapi.com/products").then(
-    (res) => res.json()
-  );
+  const products: IProduct[] = await fetch(
+    "https://fakestoreapi.com/products"
+  ).then((res) => res.json());
 
   return {
     props: {

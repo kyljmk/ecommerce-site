@@ -11,6 +11,10 @@ export interface IProduct {
   };
 }
 
-export interface IProductProps {
+export interface IProductFeedProps {
   products: IProduct[];
+}
+
+export interface IProductProps {
+  product: IProduct;
 }

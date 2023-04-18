@@ -1,8 +1,12 @@
 import React from "react";
-import { IProductProps } from "@/Types";
+import { IProductFeedProps, IProductProps } from "@/Types";
+import Product from "./Product";
 
-function ProductFeed({ products }: IProductProps) {
-  return <div></div>;
+function ProductFeed({ products }: IProductFeedProps) {
+  const productElements = products.map((product) => {
+    return <Product product={product} />;
+  });
+  return <div>{productElements}</div>;
 }
 
 export default ProductFeed;
