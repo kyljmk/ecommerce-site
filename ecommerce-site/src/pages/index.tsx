@@ -1,3 +1,4 @@
+import Banner from "@/components/Banner";
 import Header from "@/components/Header";
 import Head from "next/head";
 
@@ -7,8 +8,9 @@ export default function Home() {
       <Head>
         <title>Amazon 2.0</title>
       </Head>
-      <main>
-        <Header />
+      <Header />
+      <main className="max-w-screen-xl mx-auto">
+        <Banner />
       </main>
     </div>
   );
