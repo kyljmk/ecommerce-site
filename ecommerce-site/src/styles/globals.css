@@ -4,6 +4,6 @@
 
 @layer components {
   .link {
-    @apply cursor-pointer hover:underline;
+    @apply cursor-pointer hover:underline text-center;
   }
 }
