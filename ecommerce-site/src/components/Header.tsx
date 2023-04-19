@@ -49,7 +49,7 @@ function Header() {
       </div>
 
       <div className="flex space-x-3 p-2 pl-6 items-center bg-amazon_blue-light text-white text-sm">
-        <p className="flex link items-center">
+        <p className="flex link items-center font-bold">
           <Bars3Icon className="h-6 mr-1" />
           All
         </p>
