@@ -2,8 +2,11 @@ import { IProduct, IProductProps } from "@/Types";
 import React, { useState } from "react";
 import Image from "next/image";
 import { StarIcon } from "@heroicons/react/24/solid";
+import { useDispatch } from "react-redux";
+import { addToBasket } from "@/slices/basketSlice";
 
 function Product({ product }: IProductProps) {
+  const dispatch = useDispatch();
   const { id, title, description, image, category, rating, price } = product;
   const [starRating] = useState<number>(Math.round(rating.rate));
   const [hasPrime] = useState<boolean>(Math.random() < 0.5);
@@ -12,6 +15,11 @@ function Product({ product }: IProductProps) {
     style: "currency",
     currency: "GBP",
   });
+
+  function addItemToBasktet(): void {
+    const newProduct = product;
+    dispatch(addToBasket(newProduct));
+  }
 
   return (
     <div className="relative flex flex-col m-5 bg-white z-30 p-10">
@@ -49,7 +57,9 @@ function Product({ product }: IProductProps) {
         </div>
       )}
 
-      <button className="mt-auto button">Add to Basket</button>
+      <button onClick={addItemToBasktet} className="mt-auto button">
+        Add to Basket
+      </button>
     </div>
   );
 }

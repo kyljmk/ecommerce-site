@@ -1,6 +1,7 @@
+import { IProduct } from "@/Types";
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+const initialState: any = {
   items: [],
 };
 
@@ -8,7 +9,9 @@ export const basketSlice = createSlice({
   name: "basket",
   initialState,
   reducers: {
-    addToBasket: (state, action) => {},
+    addToBasket: (state, action) => {
+      state.items = [...state.items, action.payload];
+    },
     removeFromBasket: (state, action) => {},
   },
 });
