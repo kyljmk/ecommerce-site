@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
+import { addToBasket, removeFromBasket } from "@/slices/basketSlice";
 
 function CheckoutProduct({ product }: IProductProps) {
   const { id, title, price, rating, description, category, image, hasPrime } =
@@ -15,7 +16,14 @@ function CheckoutProduct({ product }: IProductProps) {
 
   const dispatch = useDispatch();
 
-  const addItemToBasket = () => {};
+  const addItemToBasket = (): void => {
+    const newProduct = product;
+    dispatch(addToBasket(newProduct));
+  };
+
+  const removeItemFromBasket = (): void => {
+    dispatch(removeFromBasket({ id }));
+  };
 
   return (
     <div className="grid grid-cols-5">
@@ -58,7 +66,9 @@ function CheckoutProduct({ product }: IProductProps) {
         <button className="button" onClick={addItemToBasket}>
           Add to Basket
         </button>
-        <button className="button">Remove from Basket</button>
+        <button onClick={removeItemFromBasket} className="button">
+          Remove from Basket
+        </button>
       </div>
     </div>
   );
