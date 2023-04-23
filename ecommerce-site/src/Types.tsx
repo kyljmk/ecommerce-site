@@ -9,6 +9,7 @@ export interface IProduct {
     count: number;
     rate: number;
   };
+  hasPrime: boolean;
 }
 
 export interface IProductFeedProps {

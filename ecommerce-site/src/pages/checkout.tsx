@@ -1,4 +1,5 @@
 import { IProduct } from "@/Types";
+import CheckoutProduct from "@/components/CheckoutProduct";
 import Header from "@/components/Header";
 import { selectItems } from "@/slices/basketSlice";
 import Image from "next/image";
@@ -26,7 +27,7 @@ function Checkout() {
                 : "Shopping Basket"}
             </h1>
             {items.map((item: IProduct, i: number) => {
-              return <CheckoutProduct />;
+              return <CheckoutProduct key={i} product={item} />;
             })}
           </div>
         </div>

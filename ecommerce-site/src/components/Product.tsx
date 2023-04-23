@@ -10,6 +10,7 @@ function Product({ product }: IProductProps) {
   const { id, title, description, image, category, rating, price } = product;
   const [starRating] = useState<number>(Math.round(rating.rate));
   const [hasPrime] = useState<boolean>(Math.random() < 0.5);
+  product.hasPrime = hasPrime;
 
   const currency = Intl.NumberFormat("en-UK", {
     style: "currency",
@@ -52,7 +53,12 @@ function Product({ product }: IProductProps) {
 
       {hasPrime && (
         <div className="flex items-center space-x-2 -mt-5">
-          <img className="w-12" src="https://links.papareact.com/fdw" alt="" />
+          <img
+            loading="lazy"
+            className="w-12"
+            src="https://links.papareact.com/fdw"
+            alt=""
+          />
           <p className="text-xs text-gray-500">FREE Next-day Delivery</p>
         </div>
       )}
