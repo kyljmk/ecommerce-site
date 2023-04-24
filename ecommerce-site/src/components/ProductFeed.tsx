@@ -4,15 +4,15 @@ import Product from "./Product";
 
 function ProductFeed({ products }: IProductFeedProps) {
   const firstProductElements = products.slice(0, 4).map((product) => {
-    return <Product product={product} />;
+    return <Product key={product.id} product={product} />;
   });
   const middleProductElements = products.slice(4, 5).map((product) => {
-    return <Product product={product} />;
+    return <Product key={product.id} product={product} />;
   });
   const remainingProductElements = products
     .slice(5, products.length)
     .map((product) => {
-      return <Product product={product} />;
+      return <Product key={product.id} product={product} />;
     });
   return (
     <div className="grid grid-flow-row-dense sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 md:-mt-36 lg:-mt-52">

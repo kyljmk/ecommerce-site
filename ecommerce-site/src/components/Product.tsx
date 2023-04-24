@@ -1,5 +1,5 @@
 import { IProduct, IProductProps } from "@/Types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { StarIcon } from "@heroicons/react/24/solid";
 import { useDispatch } from "react-redux";
@@ -9,8 +9,11 @@ function Product({ product }: IProductProps) {
   const dispatch = useDispatch();
   const { id, title, description, image, category, rating, price } = product;
   const [starRating] = useState<number>(Math.round(rating.rate));
-  const [hasPrime] = useState<boolean>(Math.random() < 0.5);
-  product.hasPrime = hasPrime;
+  const [hasPrime, setHasPrime] = useState<boolean>(false);
+
+  useEffect(() => {
+    setHasPrime(Math.random() < 0.5);
+  }, []);
 
   const currency = Intl.NumberFormat("en-UK", {
     style: "currency",
@@ -18,6 +21,7 @@ function Product({ product }: IProductProps) {
   });
 
   function addItemToBasktet(): void {
+    product.hasPrime = hasPrime;
     const newProduct = product;
     dispatch(addToBasket(newProduct));
   }
@@ -40,8 +44,8 @@ function Product({ product }: IProductProps) {
       <div className="flex items-center">
         {Array(starRating)
           .fill("")
-          .map((_) => {
-            return <StarIcon className="h-5 text-yellow-500" />;
+          .map((_, i) => {
+            return <StarIcon className="h-5 text-yellow-500" key={i} />;
           })}
         <span className="font-bold ml-2">{rating.rate}</span>
         <span className="text-gray-700 ml-1">({rating.count})</span>

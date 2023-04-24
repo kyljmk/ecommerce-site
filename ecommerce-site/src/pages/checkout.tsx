@@ -6,6 +6,9 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(process.env.stripe_public_key);
 
 function Checkout() {
   const items = useSelector(selectItems);
@@ -16,6 +19,15 @@ function Checkout() {
     style: "currency",
     currency: "GBP",
   });
+
+  const createCheckoutSession = async () => {
+    const stripe = await stripePromise;
+
+    const checkoutSession = await axios.post("/api/create-checkout-session", {
+      items,
+      email: session?.user?.email,
+    });
+  };
 
   return (
     <div className="bg-gray-100">
@@ -49,6 +61,8 @@ function Checkout() {
                 <span className="font-bold ml-2">{currency.format(total)}</span>
               </h2>
               <button
+                role="link"
+                onClick={createCheckoutSession}
                 disabled={!session}
                 className={`mt-2 ${!session ? "disabledButton" : "button"}`}
               >
