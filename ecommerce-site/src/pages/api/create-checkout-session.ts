@@ -12,7 +12,7 @@ export default async (req: Request, res: Response) => {
     const transformedItems = items.map((item: IProduct) => ({
 
         quantity: 1,
-        price: {
+        price_data: {
             currency: "gbp",
             product_data: {
                 name: item.title,
@@ -24,41 +24,24 @@ export default async (req: Request, res: Response) => {
 
     const params: Stripe.Checkout.SessionCreateParams = {
         mode: "payment",
-        submit_type: 'donate',
+        submit_type: "pay",
+        shipping_options: [{
+          shipping_rate: "shr_1N0W2KKWKoO69dwVdT14k0i2"
+        }],
+        shipping_address_collection: {
+          allowed_countries: ["GB", "US", "CA", "SE"]
+        },
         payment_method_types: ['card'],
-        line_items: [
-                    {
-                      price_data: {currency: 'usd', product_data: {name: 'T-shirt'}, unit_amount: 2000},
-                      quantity: 1,
-                    },
-                  ],
-        success_url: `${req.headers.origin}/result?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.headers.origin}/donate-with-checkout`,
+        line_items: transformedItems,
+        success_url: `${req.headers.origin}/success`,
+        cancel_url: `${req.headers.origin}/checkout`,
+        metadata: {
+          email,
+          images: JSON.stringify(items.map((item: IProduct) => item.image))
+        }
       }
 
     const session: Stripe.Checkout.Session = await stripe.checkout.sessions.create(params)
 
     res.status(200).json({id: session.id})
 }
-
-
-// {
-//     payment_method_types: ["card"],
-//     shipping_options: ["shr_1N0W2KKWKoO69dwVdT14k0i2"],
-//     shipping_address_collection: {
-//         allowed_countries: ["GB", "US", "CA", "SE"]
-//     },
-//     line_items: [
-//         {
-//           price: {currency: 'usd', product_data: {name: 'T-shirt'}, unit_amount: 2000},
-//           quantity: 1,
-//         },
-//       ],
-//     mode: "payment",
-//     success_url: `${process.env.HOST}/success`,
-//     cancel_url: `${process.env.HOST}/checkout`,
-//     metadata: {
-//         email,
-//         images: JSON.stringify(items.map((item: IProduct) => item.image))
-//     }
-// }
