@@ -9,14 +9,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export default async (req: Request, res: Response) => {
     const {items, email } = req.body
 
-    const transformedItems = items.map((item: IProduct) => ({
+    const transformedItems: Stripe.Checkout.SessionCreateParams.LineItem[] = items.map((item: IProduct) => ({
 
         quantity: 1,
         price_data: {
             currency: "gbp",
             product_data: {
                 name: item.title,
-                images: [item.image]
+                images: [item.image],
+                description: item.description
             },
             unit_amount: item.price * 100
         }
