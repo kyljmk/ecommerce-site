@@ -5,6 +5,8 @@ declare namespace NodeJS {
       GITHUB_ID: string
       GITHUB_SECRET: string
       STRIPE_PUBLIC_KEY: string
+      STRIPE_SECRET_KEY: string
       stripe_public_key: string
+      STRIPE_SIGNING_SECRET: string
     }
   }

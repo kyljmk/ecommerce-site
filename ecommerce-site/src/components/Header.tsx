@@ -56,7 +56,7 @@ function Header() {
             onClick={() => router.push("/checkout")}
             className="relative link flex items-center"
           >
-            <span className="absolute top-0 right-2 md:right-14 w-4 h-4 bg-yellow-400 roudned-full text-center rounded-full text-black font-bold">
+            <span className="absolute top-0 right-2 md:right-14 w-4 h-4 bg-yellow-400 text-center rounded-full text-black font-bold">
               {items.length}
             </span>
             <ShoppingCartIcon className="h-10" />
