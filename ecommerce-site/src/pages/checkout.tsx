@@ -19,7 +19,9 @@ function Checkout() {
 
   const [blockScroll, allowScroll] = useScrollBlock();
   useEffect(() => {
-    blockScroll();
+    if (items.length > 0) {
+      blockScroll();
+    }
   }, []);
 
   const currency = Intl.NumberFormat("en-UK", {
@@ -46,25 +48,38 @@ function Checkout() {
 
   return (
     <div className="relative">
-      {displayMessage && (
+      {displayMessage && items.length > 0 && (
         <div className="absolute w-screen h-screen bg-black flex items-center justify-center">
-          <div className="bg-white h-20 w-[70%] z-10 border-yellow-600 border-4 rounded-2xl flex flex-col items-center justify-center">
-            <p className="font-bold">
+          <div className="bg-white h-auto p-4 w-[70%] z-10 border-yellow-500 space-y-4 border-4 rounded-2xl flex flex-col items-center justify-center font-bold text-center">
+            <p className="text-xl">
               This website is for portfolio purposes only!
             </p>
+            <p>
+              If you click on "Proceed to checkout" you will be taken to a
+              Stripe Checkout page which is merely for techincal demonstration.{" "}
+            </p>
+            <p>
+              If you enter your card details and pay, I will receive the money
+              but you will not receive any products.{" "}
+            </p>
+            <p>You have been warned!</p>
             <div
               onClick={() => {
                 setDisplayMessage(false);
                 allowScroll();
               }}
-              className="bg-yellow-600 cursor-pointer rounded-3xl font-bold py-1 px-2"
+              className="bg-yellow-500 cursor-pointer rounded-3xl font-bold py-1 px-2"
             >
               Okay
             </div>
           </div>
         </div>
       )}
-      <div className={`bg-gray-100 ${displayMessage && "opacity-40"}`}>
+      <div
+        className={`bg-gray-100 ${
+          displayMessage && items.length > 0 && "opacity-40"
+        }`}
+      >
         <Header />
         <main className="lg:flex max-w-screen-xl mx-auto">
           <div className="flex-grow m-5 shadow-sm">
