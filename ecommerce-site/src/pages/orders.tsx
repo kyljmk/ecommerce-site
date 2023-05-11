@@ -3,8 +3,7 @@ import { GetServerSideProps } from "next";
 import { getSession, useSession } from "next-auth/react";
 import React from "react";
 import db from "../../firebase";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-
+import { collection, getDoc } from "firebase/firestore";
 
 function Orders({ orders }: any) {
   const session = useSession();
@@ -29,24 +28,28 @@ function Orders({ orders }: any) {
 
 export default Orders;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+// export async function getServerSideProps(context: any) {
+//   const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
-  const session = await getSession(context)
+//   const session = await getSession(context)
 
-  if(!session){
-    return {
-      props:{}
-    }
-  }
+//   if(!session){
+//     return {
+//       props:{}
+//     }
+//   }
 
-  const docRef = doc(db, "users")
-  const usersSnpshot = await getDoc(usersCol)
+//   // const q = query(collection(db, "users"), where(doc, "==", "me"))
+//   // const usersSnpshot = (await getDocs(q)).query(doc("r"))
+// //@ts-ignore
+//   const docRef = await doc(db, "users", session.user?.email)
 
-  const a = usersSnpshot.docs.filter(a => a.)
+//   const docSnap = await getDoc(docRef).listCollections()
 
-  // const citiesCol = collection(db, 'cities');
-  // const citySnapshot = await getDocs(citiesCol);
-  // const cityList = citySnapshot.docs.map(doc => doc.data());
+// const orders = await Promise.all(
+//   docSnap
+// )
 
-}
+// const orders1 = await db.collection("users")
+
+// }
