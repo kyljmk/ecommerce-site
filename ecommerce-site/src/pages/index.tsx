@@ -3,7 +3,7 @@ import Banner from "@/components/Banner";
 import Header from "@/components/Header";
 import ProductFeed from "@/components/ProductFeed";
 import { GetServerSideProps } from "next";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 
 export default function Home({ products }: IProductFeedProps) {
@@ -26,7 +26,7 @@ export async function getServerSideProps(context: any) {
     "https://fakestoreapi.com/products"
   ).then((res) => res.json());
 
-  const session = useSession(context);
+  const session = await getSession(context);
 
   return {
     props: {
